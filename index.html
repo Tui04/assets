@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Dez perguntas de múltipla escolha que estimam quanto da carteira de aposentadoria deve ficar em ações. Modelo educacional, não é recomendação de investimento.">
+<meta name="description" content="Dez perguntas de múltipla escolha que estimam quanto da carteira de aposentadoria deve ficar em renda variável. Modelo educacional, não é recomendação de investimento.">
 <title>Calculadora de Alocação</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
   --accent:#1C5CAB; --accent-soft:#E1ECF8; --on-accent:#FFFFFF;
   --risk:#EB6834; --infl:#2A78D6;
   --flag-bg:#FFF1CC; --flag-ink:#5C4300; --good:#0CA30C; --warn:#FAB219;
+  --paper:#F3F1EA; --paper-ink:#16191A; --paper-muted:#4A5054; --paper-line:#D8D4C8;
   --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
   --f-body:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -178,6 +179,33 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
 .limits li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--line-2)}
 .foot{font-size:13px;color:var(--muted);max-width:44rem}
 
+/* Detalhes recolhidos */
+.more{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.more>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;font-family:var(--f-display);font-weight:600;font-size:20px;line-height:1.25}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::after{content:"";flex:none;width:10px;height:10px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);margin-right:6px;transition:transform .2s}
+.more[open]>summary::after{transform:rotate(-135deg)}
+.more>summary:hover{color:var(--accent)}
+.more-sub{display:block;font-family:var(--f-body);font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
+.more-body{display:flex;flex-direction:column;gap:44px;padding-block:12px 40px}
+
+/* Contato */
+.cta{background:var(--paper);color:var(--paper-ink);border-radius:12px;padding:28px 32px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px 44px;align-items:center}
+.cta-art svg{display:block;width:100%;height:auto}
+.cta-text{display:flex;flex-direction:column;gap:14px;min-width:0}
+.cta h2{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.4vw,32px);line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.cta p{font-size:16px;color:var(--paper-muted);max-width:34rem}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding-top:16px;margin-top:4px;border-top:1px solid var(--paper-line)}
+.contact-l{width:100%;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-muted);font-weight:500}
+.contact a{font-family:var(--f-mono);font-size:17px;color:var(--paper-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;overflow-wrap:anywhere}
+.copy{font:inherit;font-size:13px;font-weight:500;padding:6px 12px;border-radius:6px;border:1px solid var(--paper-ink);background:transparent;color:var(--paper-ink);cursor:pointer}
+.copy:hover{background:var(--paper-ink);color:var(--paper)}
+.cta :focus-visible{outline-color:var(--paper-ink)}
+@media (max-width:680px){
+  .cta{grid-template-columns:minmax(0,1fr);padding:24px 20px}
+  .cta-art{justify-self:center;width:min(100%,280px)}
+}
+
 @media (max-width:820px){
   .result{grid-template-columns:minmax(0,1fr)}
 }
@@ -198,8 +226,8 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
 <div class="page" id="app">
   <header class="mast">
     <p class="eyebrow">Modelo educacional. Não é recomendação de investimento.</p>
-    <h1>Quanto da sua aposentadoria deve ficar em ações?</h1>
-    <p class="lede" id="lede">Dez perguntas de múltipla escolha sobre o seu dinheiro de longo prazo. No fim, um percentual aproximado para ações e renda fixa, com a conta aberta e a origem de cada regra.</p>
+    <h1>Quanto da sua aposentadoria deve ficar em renda variável?</h1>
+    <p class="lede" id="lede">Dez perguntas de múltipla escolha sobre o seu dinheiro de longo prazo. No fim, um percentual aproximado para renda variável e renda fixa, com a conta aberta e a origem de cada regra.</p>
   </header>
 
   <form id="form" class="quiz" novalidate>
@@ -224,7 +252,7 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
       <div class="result" id="resultado" tabindex="-1">
         <div class="result-col">
           <div class="result-top">
-            <p class="kicker">Em ações e outros ativos de risco <span class="chip" id="chip-ex" hidden>Exemplo</span></p>
+            <p class="kicker">Em renda variável <span class="chip" id="chip-ex" hidden>Exemplo</span></p>
             <p class="big" id="r-num">0%</p>
             <p class="faixa" id="r-faixa"></p>
           </div>
@@ -250,11 +278,14 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
       </div>
       <div class="actions" id="acts-own">
         <button type="button" class="btn" id="edit">Rever respostas</button>
-        <button type="button" class="btn" id="edit-prem">Mudar a expectativa para as ações</button>
+        <button type="button" class="btn" id="edit-prem">Mudar a expectativa para a renda variável</button>
         <button type="button" class="btn btn-quiet" id="restart">Refazer do zero</button>
       </div>
     </div>
 
+    <details class="more" id="more">
+      <summary><span>Ver como chegamos nesse número<span class="more-sub">A conta passo a passo, as premissas, o modelo e as fontes</span></span></summary>
+      <div class="more-body">
     <section class="sec" id="conta">
       <h2 class="sec-h">Como chegamos nesse número</h2>
       <p class="sec-p">Três passos em sequência. O destacado é o que mais pesou no resultado.</p>
@@ -263,7 +294,7 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
 
     <section class="sec">
       <h2 class="sec-h">Quanto o resultado depende das premissas</h2>
-      <p class="sec-p">Percentual em ações mudando só duas coisas: quanto a mais as ações rendem e o quanto você evita risco, dentro da faixa da sua resposta sobre a aposta de renda. A faixa plausível do resultado é o menor e o maior valor desta tabela.</p>
+      <p class="sec-p">Percentual em renda variável mudando só duas coisas: quanto a mais a renda variável rende e o quanto você evita risco, dentro da faixa da sua resposta sobre a aposta de renda. A faixa plausível do resultado é o menor e o maior valor desta tabela.</p>
       <div class="scroll"><table class="sens" id="sens"></table></div>
     </section>
 
@@ -278,11 +309,11 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
       <div class="scroll"><table class="orig">
         <thead><tr><th>Regra</th><th>Origem</th><th>Tipo</th></tr></thead>
         <tbody>
-          <tr><td>Fração em ações = prêmio ÷ (aversão × variância)</td><td>Merton (1969); Samuelson (1969)</td><td><span class="kind kind-t">Teoria</span></td></tr>
+          <tr><td>Fração em renda variável = prêmio ÷ (aversão × variância)</td><td>Merton (1969); Samuelson (1969)</td><td><span class="kind kind-t">Teoria</span></td></tr>
           <tr><td>Aversão a risco medida por uma aposta de renda</td><td>Barsky, Juster, Kimball e Shapiro (1997)</td><td><span class="kind kind-e">Evidência</span></td></tr>
           <tr><td>Respostas hipotéticas têm muito ruído, e os valores publicados de aversão são inflados</td><td>Kimball, Sahm e Shapiro (2008); Elminejad, Havranek e Irsova (2025)</td><td><span class="kind kind-e">Evidência</span></td></tr>
           <tr><td>Aportes futuros contam como patrimônio parecido com renda fixa</td><td>Bodie, Merton e Samuelson (1992); Cocco, Gomes e Maenhout (2005); Ayres e Nalebuff (2010)</td><td><span class="kind kind-t">Teoria</span></td></tr>
-          <tr><td>Renda ligada ao mercado reduz o espaço para ações</td><td>Benzoni, Collin-Dufresne e Goldstein (2007)</td><td><span class="kind kind-t">Teoria</span></td></tr>
+          <tr><td>Renda ligada ao mercado reduz o espaço para renda variável</td><td>Benzoni, Collin-Dufresne e Goldstein (2007)</td><td><span class="kind kind-t">Teoria</span></td></tr>
           <tr><td>Título atrelado à inflação de prazo longo como ativo seguro para quem investe a longo prazo</td><td>Campbell e Viceira (2002)</td><td><span class="kind kind-t">Teoria</span></td></tr>
           <tr><td>Teto pela queda que você aguenta, com desconto por inexperiência</td><td>Regra prática deste modelo</td><td><span class="kind kind-c">Convenção</span></td></tr>
           <tr><td>Quanto da renda acompanha o mercado (0 a 0,4 conforme o tipo)</td><td>Julgamento deste modelo</td><td><span class="kind kind-c">Convenção</span></td></tr>
@@ -297,12 +328,100 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
       <ul class="limits">
         <li>Impostos, custos e previdência (INSS, PGBL, VGBL).</li>
         <li>Imóveis, dívidas e o patrimônio de quem divide as contas com você.</li>
-        <li>Como dividir as ações entre Brasil e exterior, ou a renda fixa entre títulos.</li>
+        <li>Como dividir a renda variável entre ações, fundos imobiliários, Brasil e exterior, ou a renda fixa entre títulos.</li>
         <li>Retornos que não seguem a curva normal: quedas reais podem ser maiores e mais longas do que a volatilidade sugere.</li>
         <li>Dinheiro para usar nos próximos anos. Para isso, a resposta costuma ser renda fixa, e esta conta não se aplica.</li>
         <li>Mudanças ao longo do tempo. Refaça quando o juro real, sua renda ou seu prazo mudarem.</li>
       </ul>
       <p class="foot">Autores e anos citados conforme a literatura de escolha de carteira. Confira as referências originais antes de usá-las em trabalho acadêmico. Suas respostas ficam salvas só neste navegador.</p>
+    </section>
+      </div>
+    </details>
+
+    <section class="cta" aria-labelledby="cta-h">
+      <div class="cta-art">
+        <svg viewBox="0 0 360 300" role="img" aria-labelledby="art-t">
+          <title id="art-t">Um touro e um urso lado a lado, desenhados a nanquim</title>
+          <defs>
+            <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+            <pattern id="fur" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)">
+              <rect width="7" height="7" fill="#151515"/>
+              <path d="M0 3.5h7" stroke="#303030" stroke-width="1.3"/>
+            </pattern>
+            <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+              <path d="M0 0v5" stroke="#16191A" stroke-width=".9" opacity=".5"/>
+            </pattern>
+            <pattern id="scarf" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(-14)">
+              <rect width="10" height="10" fill="#6E7147"/>
+              <path d="M0 2h10" stroke="#55582F" stroke-width="2.6"/>
+            </pattern>
+            <radialGradient id="wash" cx="45%" cy="38%" r="72%">
+              <stop offset="52%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#CBCAC4"/>
+            </radialGradient>
+          </defs>
+          <g filter="url(#ink)" stroke="#121212" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+            <!-- touro -->
+            <path d="M38 300C40 246 62 206 116 198C168 205 192 244 198 300Z" fill="url(#wash)"/>
+            <path d="M54 300C56 262 68 236 90 222C94 248 86 276 94 300Z" fill="url(#fur)" stroke="none"/>
+            <path d="M88 202C102 216 130 216 144 202C138 224 94 224 88 202Z" fill="url(#hatch)" stroke="none"/>
+            <path d="M82 96C64 84 44 88 32 102C46 114 66 116 84 110Z" fill="url(#wash)"/>
+            <path d="M44 102C56 100 68 102 76 106" fill="none" stroke-width="1.8"/>
+            <path d="M148 96C166 84 186 88 198 102C184 114 164 116 146 110Z" fill="url(#wash)"/>
+            <path d="M186 102C174 100 162 102 154 106" fill="none" stroke-width="1.8"/>
+            <path d="M86 74C66 66 50 48 54 20C62 40 80 54 100 62Z" fill="#E3A21A"/>
+            <path d="M144 74C164 66 180 48 176 20C168 40 150 54 130 62Z" fill="#E3A21A"/>
+            <path d="M80 70C72 104 78 140 88 162C96 182 134 182 142 162C152 140 158 104 150 70C138 54 92 54 80 70Z" fill="url(#wash)"/>
+            <path d="M125 92C140 87 153 94 153 106C153 119 144 127 132 125C121 123 117 104 125 92Z" fill="url(#fur)" stroke="none"/>
+            <path d="M96 68C101 56 107 67 113 55C118 67 124 55 131 67" fill="none" stroke-width="2.6"/>
+            <path d="M84 128l8-4M84 136l8-4M146 128l-8-4M146 136l-8-4" fill="none" stroke-width="1.6"/>
+            <path d="M86 152C86 136 144 136 144 152C146 176 136 190 115 190C94 190 84 176 86 152Z" fill="#E7E3DA"/>
+            <ellipse cx="103" cy="163" rx="4.6" ry="7" fill="#121212" transform="rotate(-16 103 163)"/>
+            <ellipse cx="127" cy="163" rx="4.6" ry="7" fill="#121212" transform="rotate(16 127 163)"/>
+            <path d="M100 181C110 184 120 184 130 181" fill="none" stroke-width="2.4"/>
+            <path d="M106 175C104 194 126 194 124 175" fill="none" stroke-width="7"/>
+            <path d="M106 175C104 194 126 194 124 175" fill="none" stroke="#E3A21A" stroke-width="3.4"/>
+            <ellipse cx="98" cy="111" rx="7.5" ry="6.5" fill="#FFFFFF"/>
+            <circle cx="99" cy="113" r="3.4" fill="#121212" stroke="none"/>
+            <path d="M90.5 111A7.5 6.5 0 0 1 105.5 111Z" fill="#F4F3F0"/>
+            <ellipse cx="135" cy="111" rx="7.5" ry="6.5" fill="#FFFFFF"/>
+            <circle cx="136" cy="113" r="3.4" fill="#121212" stroke="none"/>
+            <path d="M127.5 111A7.5 6.5 0 0 1 142.5 111Z" fill="url(#fur)"/>
+            <!-- urso -->
+            <path d="M188 300C190 252 206 212 262 204C318 212 336 252 340 300Z" fill="url(#fur)"/>
+            <circle cx="214" cy="80" r="20" fill="url(#fur)"/>
+            <circle cx="215" cy="82" r="9" fill="#5C5C5C" stroke="none"/>
+            <circle cx="310" cy="80" r="20" fill="url(#fur)"/>
+            <circle cx="309" cy="82" r="9" fill="#5C5C5C" stroke="none"/>
+            <path d="M206 120C204 84 230 64 262 64C296 64 320 86 318 120C318 156 296 182 262 182C228 182 206 156 206 120Z" fill="url(#fur)"/>
+            <path d="M234 148C234 130 290 130 290 148C292 168 280 180 262 180C244 180 232 168 234 148Z" fill="#D8D3C7"/>
+            <path d="M251 138C251 131 273 131 273 138C273 146 267 150 262 150C257 150 251 146 251 138Z" fill="#121212"/>
+            <ellipse cx="257.5" cy="136.5" rx="3" ry="1.6" fill="#FFFFFF" stroke="none"/>
+            <path d="M262 150v10M250 164C256 166 268 166 274 164" fill="none" stroke-width="2.4"/>
+            <ellipse cx="242" cy="113" rx="7" ry="6" fill="#FFFFFF"/>
+            <circle cx="243" cy="115" r="3.2" fill="#121212" stroke="none"/>
+            <path d="M235 113A7 6 0 0 1 249 113Z" fill="url(#fur)"/>
+            <ellipse cx="282" cy="113" rx="7" ry="6" fill="#FFFFFF"/>
+            <circle cx="283" cy="115" r="3.2" fill="#121212" stroke="none"/>
+            <path d="M275 113A7 6 0 0 1 289 113Z" fill="url(#fur)"/>
+            <path d="M214 178C240 196 286 196 312 178L318 198C292 218 234 218 208 198Z" fill="url(#scarf)"/>
+            <path d="M282 206L300 262L280 266L268 210Z" fill="url(#scarf)"/>
+            <path d="M283 266l-2 9M289 265l-1 9M295 264v9" fill="none" stroke-width="2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="cta-text">
+        <h2 id="cta-h">Quer ir além do percentual?</h2>
+        <p>Se quiser saber mais, entender quais ativos fazem mais sentido para você e onde alocar cada um, entre em contato.</p>
+        <div class="contact">
+          <span class="contact-l">E-mail</span>
+          <a id="mail" href="mailto:arthurminas13@gmail.com">arthurminas13@gmail.com</a>
+          <button type="button" class="copy" id="copy-mail">Copiar</button>
+        </div>
+      </div>
     </section>
   </div>
 </div>
@@ -392,7 +511,7 @@ function analyse(s){
       ['a','Ficar parecidos com os de hoje','Renda estável, sem grandes saltos'],
       ['b','Crescer aos poucos','Promoções e aumentos acima da inflação ao longo dos anos'],
       ['c','Crescer bastante','Início de carreira, quando a renda ainda vai subir muito']]},
-    {k:'renda',g:'Sua segurança',t:'Como é a sua renda?',p:'Quanto mais estável, mais seus aportes futuros funcionam como renda fixa, e mais espaço sobra para ações no que já está investido.',o:[
+    {k:'renda',g:'Sua segurança',t:'Como é a sua renda?',p:'Quanto mais estável, mais seus aportes futuros funcionam como renda fixa, e mais espaço sobra para renda variável no que já está investido.',o:[
       ['a','Estável e garantida','Servidor público ou aposentado'],
       ['b','Estável, com algum risco de demissão','Empregado com carteira assinada em setor estável'],
       ['c','Varia de mês a mês','Autônomo, profissional liberal, plantões'],
@@ -404,7 +523,7 @@ function analyse(s){
     {k:'queda',g:'Seu perfil de risco',t:'Qual a maior queda temporária que você aguentaria ver na carteira sem vender nada?',o:quedaOpts},
     {k:'exp',g:'Seu perfil de risco',t:'Você já viu seus investimentos caírem 20% ou mais?',p:'Quem nunca passou por uma queda costuma superestimar o quanto aguenta.',o:[
       ['a','Sim, e mantive ou comprei mais'],['b','Nunca passei por isso'],['c','Sim, e vendi parte ou tudo']]},
-    {k:'premio',g:'Mercado',t:'Nas próximas décadas, quanto a mais você acha que as ações vão render por ano do que um título público seguro?',p:'O título seguro aqui é o Tesouro IPCA+, que hoje paga mais de 7% ao ano acima da inflação. Esta é a premissa que mais muda o resultado.',o:[
+    {k:'premio',g:'Mercado',t:'Nas próximas décadas, quanto a mais você acha que a renda variável vai render por ano do que um título público seguro?',p:'O título seguro aqui é o Tesouro IPCA+, que hoje paga mais de 7% ao ano acima da inflação. Esta é a premissa que mais muda o resultado.',o:[
       ['a','Não tenho opinião','Usar a sugerida: 2% ao ano a mais'],
       ['b','Pouco mais','1% ao ano a mais'],
       ['c','Moderadamente mais','3% ao ano a mais'],
@@ -512,9 +631,9 @@ function analyse(s){
     $('#g-band').style.left=(A.lo*100)+'%';
     $('#g-band').style.width=Math.max(0,(A.hi-A.lo)*100)+'%';
     $('#g-dot').style.left=(c.final*100)+'%';
-    $('#gauge').setAttribute('aria-label',`Estimativa central de ${pct(c.final)} em ações, com faixa de ${pct(A.lo)} a ${pct(A.hi)}`);
+    $('#gauge').setAttribute('aria-label',`Estimativa central de ${pct(c.final)} em renda variável, com faixa de ${pct(A.lo)} a ${pct(A.hi)}`);
     let why;
-    if(c.final<=0.005) why=c.prem<=0?'Sem prêmio esperado para as ações, a fórmula não recomenda risco.':'Pela sua renda e pela expectativa para as ações, a conta não recomenda ações agora.';
+    if(c.final<=0.005) why=c.prem<=0?'Sem prêmio esperado para a renda variável, a fórmula não recomenda risco.':'Pela sua renda e pela expectativa para a renda variável, a conta não recomenda renda variável agora.';
     else if(c.capB<c.sM-0.0005) why=`Quem definiu o número foi a queda que você aguenta. Sem esse teto, a conta daria ${pct(c.sM)}.`;
     else why=`A queda que você aguenta permitiria até ${pct(c.capB)}. O número veio da fórmula e do valor dos seus aportes futuros.`;
     $('#r-why').textContent=why;
@@ -522,20 +641,20 @@ function analyse(s){
     $('#acts-ex').hidden=!state.exemplo; $('#acts-own').hidden=!!state.exemplo;
 
     const segs=[
-      ['risk','Ações e outros ativos de risco','Brasil e exterior, bem diversificadas',c.final],
+      ['risk','Renda variável','Ações e fundos de índice, no Brasil e no exterior, bem diversificados',c.final],
       ['infl','Renda fixa atrelada à inflação','Tesouro IPCA+ de prazo longo ou similar',1-c.final]
     ];
     $('#bar').innerHTML=segs.filter(v=>v[3]>0.0005).map(v=>`<span class="seg seg-${v[0]}" style="flex:${v[3]} 1 0" tabindex="0" data-tip="${esc(v[1])}: ${pct(v[3])}"></span>`).join('');
     $('#legend').innerHTML=segs.map(v=>`<div class="leg"><i class="seg-${v[0]}"></i><span class="leg-name">${v[1]}</span><span class="leg-pct">${pct(v[3])}</span><span class="leg-sub">${v[2]}</span></div>`).join('');
     const per=Math.round(c.final*100)*10;
-    $('#per').innerHTML=`A cada R$ 1.000 investidos, cerca de <strong>${brl(per)}</strong> em ações e <strong>${brl(1000-per)}</strong> em renda fixa atrelada à inflação.`;
+    $('#per').innerHTML=`A cada R$ 1.000 investidos, cerca de <strong>${brl(per)}</strong> em renda variável e <strong>${brl(1000-per)}</strong> em renda fixa atrelada à inflação.`;
 
     const rv=s.reserva, tem=`Você tem ${rv.txt} de gastos guardados. A referência para o seu tipo de renda é de ${s.meses} meses.`;
     $('#reserve').innerHTML=rv.lo>=s.meses
       ?`<span class="pill pill-ok"><b aria-hidden="true">✓</b>Reserva em dia</span><p>${tem}</p>`
       :rv.hi>=s.meses
-        ?`<span class="pill pill-warn"><b aria-hidden="true">!</b>Reserva no limite</span><p>${tem} Confira se você chega a ${s.meses} meses antes de colocar dinheiro novo em ações.</p>`
-        :`<span class="pill pill-warn"><b aria-hidden="true">!</b>Reserva incompleta</span><p>${tem} Complete a reserva antes de colocar dinheiro novo em ações.</p>`;
+        ?`<span class="pill pill-warn"><b aria-hidden="true">!</b>Reserva no limite</span><p>${tem} Confira se você chega a ${s.meses} meses antes de colocar dinheiro novo em renda variável.</p>`
+        :`<span class="pill pill-warn"><b aria-hidden="true">!</b>Reserva incompleta</span><p>${tem} Complete a reserva antes de colocar dinheiro novo em renda variável.</p>`;
 
     const cut=c.sM-c.final;
     const bind=c.final<=0.005&&c.sM<=0.005?(c.H>0?2:1):(cut>0.0005?3:(c.H>0?2:1));
@@ -546,28 +665,28 @@ function analyse(s){
       s2=`Seus aportes até lá valem cerca de ${brk(c.H)} hoje${s.F>0?`, e você já tem cerca de ${brk(s.F)}`:''}.`;
       if(s.beta>0) s2+=` Como sua renda acompanha em parte o mercado, ${pct(s.beta)} desse valor já conta como risco.`;
       s2+=s.F>0
-        ?` Para o total ficar em ${pct(c.pi)} em ações, o que você já tem precisaria de ${rawTxt} em ações${c.raw>1?', limitado a 100% porque o modelo não usa empréstimo para investir':c.raw<0?', limitado a 0%':''}.`
+        ?` Para o total ficar em ${pct(c.pi)} em renda variável, o que você já tem precisaria de ${rawTxt} em renda variável${c.raw>1?', limitado a 100% porque o modelo não usa empréstimo para investir':c.raw<0?', limitado a 0%':''}.`
         :' Como você ainda não tem saldo, o percentual vale para os primeiros aportes.';
     }
-    const s3=`Você aguenta ver a carteira cair ${s.queda}%${s.mult<1?`, com desconto de ${pct(1-s.mult)} pela sua experiência com quedas`:''}. Se as ações caírem ${FIXO.crash}%, isso permite até ${pct(c.capB)} em ações.`;
+    const s3=`Você aguenta ver a carteira cair ${s.queda}%${s.mult<1?`, com desconto de ${pct(1-s.mult)} pela sua experiência com quedas`:''}. Se a renda variável cair ${FIXO.crash}%, isso permite até ${pct(c.capB)} em renda variável.`;
     const steps=[
-      ['Fórmula de Merton','Fração ideal em ações da riqueza total, somando o que você tem e o que ainda vai aportar.',`${num(c.prem*100,2)}% ÷ (${num(c.gamma,2)} × ${num(c.sig*100)}%²)`,pct(c.pi)],
+      ['Fórmula de Merton','Fração ideal em renda variável da riqueza total, somando o que você tem e o que ainda vai aportar.',`${num(c.prem*100,2)}% ÷ (${num(c.gamma,2)} × ${num(c.sig*100)}%²)`,pct(c.pi)],
       ['Aportes futuros',s2,'',pct(c.sM)],
       ['Queda que você aguenta',s3,`${s.queda}% × ${num(s.mult)} ÷ ${FIXO.crash}% = ${pct(c.capB)}`,pct(c.final)]
     ];
     $('#trace').innerHTML=`<ol class="pipe">${steps.map((st,i)=>`<li class="${bind===i+1?'is-bind':''}"><span class="pn">${i+1}</span><div><p class="pt">${st[0]}${bind===i+1?'<span class="tag">mais pesou</span>':''}</p><p class="pd">${st[1]}</p>${st[2]?`<p class="pf">${st[2]}</p>`:''}</div><span class="pv">${st[3]}</span></li>`).join('')}</ol>
-      <div class="trace-out"><p><strong>${pct(c.final)} em ações e ${pct(1-c.final)} em renda fixa atrelada à inflação.</strong></p>${c.final>0.005?`<p>Pelas premissas, a chance de as ações renderem menos que o Tesouro IPCA+ em ${anos(s.T)} é de ${pct(c.pUnder)}. Ações compensam em média, não sempre.</p>`:''}</div>`;
+      <div class="trace-out"><p><strong>${pct(c.final)} em renda variável e ${pct(1-c.final)} em renda fixa atrelada à inflação.</strong></p>${c.final>0.005?`<p>Pelas premissas, a chance de a renda variável render menos que o Tesouro IPCA+ em ${anos(s.T)} é de ${pct(c.pUnder)}. Ela compensa em média, não sempre.</p>`:''}</div>`;
 
     const rows=['Mais cauteloso','Centro da sua resposta','Menos cauteloso'];
-    $('#sens').innerHTML=`<thead><tr><th>Aversão a risco</th>${A.prems.map(p=>`<th>Ações +${num(p,2)}%</th>`).join('')}</tr></thead><tbody>`
+    $('#sens').innerHTML=`<thead><tr><th>Aversão a risco</th>${A.prems.map(p=>`<th>Prêmio ${num(p,2)}%</th>`).join('')}</tr></thead><tbody>`
       +A.grid.map((r,i)=>`<tr><th scope="row">${rows[i]}<small>aversão ${num(A.gammas[i],2)}</small></th>${r.map((v,j)=>`<td class="${i===1&&j===1?'is-you':''}">${pct(v)}</td>`).join('')}</tr>`).join('')+'</tbody>';
 
     const pr=[
-      ['Quanto a mais as ações rendem por ano','Sua resposta na última pergunta',`${num(s.premio,2)}%`],
+      ['Quanto a mais a renda variável rende por ano','Sua resposta na última pergunta',`${num(s.premio,2)}%`],
       ['Aversão a risco','Centro da faixa da sua resposta sobre a aposta de renda',num(c.gamma,2)],
-      ['Oscilação das ações (volatilidade)','Ações do Brasil e do exterior juntas, medidas em reais',`${FIXO.vol}% ao ano`],
+      ['Oscilação da renda variável (volatilidade)','Ações do Brasil e do exterior juntas, medidas em reais',`${FIXO.vol}% ao ano`],
       ['Juro real do título seguro','Tesouro IPCA+ pagava entre 7,1% e 7,7% acima da inflação em 25/09/2026',`${FIXO.juro}% ao ano`],
-      ['Queda severa das ações','Usada para transformar a queda que você aguenta em teto',`${FIXO.crash}%`],
+      ['Queda severa da renda variável','Usada para transformar a queda que você aguenta em teto',`${FIXO.crash}%`],
       ['Parte da sua renda que acompanha o mercado','Pelo tipo de renda escolhido',num(s.beta)],
       ['Prazo considerado','Valor usado para a faixa escolhida',anos(s.T)],
       ['Saldo considerado','Valor usado para a faixa escolhida',brl(s.F)],
@@ -585,6 +704,13 @@ function analyse(s){
   }
   ['pointerover','focusin'].forEach(ev=>alloc.addEventListener(ev,e=>{const s=e.target.closest('.seg'); if(s) showTip(s);}));
   ['pointerout','focusout'].forEach(ev=>alloc.addEventListener(ev,e=>{if(e.target.closest('.seg')) tip.hidden=true;}));
+
+  const cm=$('#copy-mail');
+  cm.addEventListener('click',()=>{
+    const done=t=>{cm.textContent=t; setTimeout(()=>{cm.textContent='Copiar';},2000);};
+    const pick=()=>{try{const r=document.createRange(); r.selectNodeContents($('#mail')); const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r); done('Selecionado');}catch(e){}};
+    try{navigator.clipboard.writeText('arthurminas13@gmail.com').then(()=>done('Copiado'),pick);}catch(e){pick();}
+  });
 
   show(false);
 })();
