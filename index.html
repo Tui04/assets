@@ -189,6 +189,14 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
 .more-sub{display:block;font-family:var(--f-body);font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
 .more-body{display:flex;flex-direction:column;gap:44px;padding-block:12px 40px}
 
+/* Avisos */
+.notes{display:flex;flex-direction:column;gap:14px;max-width:760px}
+.notes h2{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.2}
+.notes ul{display:flex;flex-direction:column;gap:12px}
+.notes li{position:relative;padding-left:28px;color:var(--ink-2)}
+.notes li::before{content:"!";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--flag-bg);color:var(--flag-ink);font-size:12px;font-weight:700;display:grid;place-items:center}
+.notes li strong{color:var(--ink);font-weight:600}
+
 /* Contato */
 .cta{background:var(--paper);color:var(--paper-ink);border-radius:12px;padding:28px 32px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px 44px;align-items:center}
 .cta-art img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
@@ -337,6 +345,16 @@ thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(
     </section>
       </div>
     </details>
+
+    <section class="notes" aria-labelledby="notes-h">
+      <h2 id="notes-h">Antes de seguir esse número</h2>
+      <ul>
+        <li><strong>Vale só para o dinheiro de longo prazo.</strong> O que tem data marcada nos próximos anos, como carro, entrada de imóvel ou viagem, fica fora desta conta, em renda fixa com vencimento perto de quando você vai usar.</li>
+        <li><strong>A reserva de emergência vem antes.</strong> Complete a reserva antes de colocar dinheiro novo em renda variável.</li>
+        <li><strong>O percentual vale para a carteira inteira e para os aportes novos.</strong> Se a sua carteira estiver longe dele, mande os aportes para a classe que está abaixo até chegar perto, em vez de vender.</li>
+        <li><strong>Refaça o questionário uma vez por ano.</strong> O alvo muda conforme o seu saldo cresce em relação aos aportes que ainda faltam.</li>
+      </ul>
+    </section>
 
     <section class="cta" aria-labelledby="cta-h">
       <div class="cta-art">
